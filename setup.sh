@@ -14,9 +14,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 apt-get update
-apt-get install -yq git maven supervisor
+apt-get install -yq git maven supervisor openjdk-8-jdk
 useradd -m -d /home/crawler crawler
-su -c "git clone git@github.com:michardy/course-cache-crawler.git" crawler
+cd /home/crawler
+su -c "git clone https://github.com/michardy/course-cache-crawler.git" crawler
+su -c "cd  course-cache-crawler; git pull" crawler
 su -c "cd  course-cache-crawler; mvn package" crawler
 ACTION=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/attributes/crawl_action" -H "Metadata-Flavor: Google")
 
