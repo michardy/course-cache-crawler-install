@@ -23,7 +23,7 @@ ACTION=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/at
 cat >/etc/supervisor/conf.d/crawler.conf << EOF
 [program:crawler]
 directory=/opt/app/7-gce
-command=/bin/java -j /home/crawler/course-cache-crawler/target/course-cache-crawler.jar $ACTION
+command=/bin/java -j /home/crawler/course-cache-crawler/target/course-cache-crawler-1.0-SNAPSHOT.jar $ACTION
 autostart=true
 autorestart=true
 user=crawler
