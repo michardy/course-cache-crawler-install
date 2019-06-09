@@ -16,21 +16,8 @@
 apt-get update
 apt-get install -yq git maven supervisor
 useradd -m -d /home/crawler crawler
-su -c "git clone git@github.com:michardy/course-cache-crawler.git"
-su -c "cd  course-cache-crawler; mvn package"
+su -c "git clone git@github.com:michardy/course-cache-crawler.git" crawler
+su -c "cd  course-cache-crawler; mvn package" crawler
 ACTION=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/attributes/crawl_action" -H "Metadata-Flavor: Google")
 
-cat >/etc/supervisor/conf.d/crawler.conf << EOF
-[program:crawler]
-directory=/opt/app/7-gce
-command=/bin/java -j /home/crawler/course-cache-crawler/target/course-cache-crawler-1.0-SNAPSHOT.jar $ACTION
-autostart=true
-autorestart=true
-user=crawler
-# Environment variables ensure that the application runs inside of the
-# configured virtualenv.
-environment=PATH="/home/crawler/course-cache-crawler",\
-    HOME="/home/crawler",USER="crawler"
-stdout_logfile=syslog
-stderr_logfile=syslog
-EOF
+su -c "java -j /home/crawler/course-cache-crawler/target/course-cache-crawler-1.0-SNAPSHOT.jar $ACTION" crawler
