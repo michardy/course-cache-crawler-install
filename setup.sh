@@ -22,4 +22,4 @@ su -c "cd  course-cache-crawler; git pull" crawler
 su -c "cd  course-cache-crawler; mvn package" crawler
 ACTION=$(curl -s "http://metadata.google.internal/computeMetadata/v1/instance/attributes/crawl_action" -H "Metadata-Flavor: Google")
 
-su -c "java -j /home/crawler/course-cache-crawler/target/course-cache-crawler-1.0-SNAPSHOT-jar-with-dependencies.jar $ACTION" crawler
+su -c "java -jar /home/crawler/course-cache-crawler/target/course-cache-crawler-1.0-SNAPSHOT-jar-with-dependencies.jar $ACTION" crawler
